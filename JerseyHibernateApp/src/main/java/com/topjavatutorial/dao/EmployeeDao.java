@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import com.topjavatutorial.EmployeeBean;
 
-public class EmployeeDAO {
+public class EmployeeDao {
 
 	public void addEmployee(EmployeeBean emp){
 
@@ -27,6 +27,7 @@ public class EmployeeDAO {
 	public List<Employee> getEmployees(){
 		Session session = SessionUtil.getSession();
 		Query query = session.createQuery("from Employee");
+		@SuppressWarnings("unchecked")
 		List<Employee> employees =query.list();
 		return employees;
 		}

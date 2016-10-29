@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import com.topjavatutorial.dao.Employee;
-import com.topjavatutorial.dao.EmployeeDAO;
+import com.topjavatutorial.dao.EmployeeDao;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -21,10 +21,12 @@ import com.topjavatutorial.dao.EmployeeDAO;
 @Path("/employees")
 public class MyResource {
 
+	@SuppressWarnings("unchecked")
 	@GET
 	@Produces("application/json")
 	public List<Employee> getEmployee() {
-		EmployeeDAO dao = new EmployeeDAO();
+		EmployeeDao dao = new EmployeeDao();
+		@SuppressWarnings("rawtypes")
 		List employees = dao.getEmployees();
 		return employees;
 		}
@@ -35,7 +37,7 @@ public class MyResource {
 	public Response addEmployee(EmployeeBean emp){
 		emp.setName(emp.getName());
 		emp.setAge(emp.getAge());
-		EmployeeDAO dao = new EmployeeDAO();
+		EmployeeDao dao = new EmployeeDao();
 		dao.addEmployee(emp);
 		return Response.ok().build();
 		}
@@ -44,7 +46,7 @@ public class MyResource {
 	@Path("/delete/{id}")
 	@Consumes("application/json")
 	public Response deleteEmployee(@PathParam("id") int id){
-		EmployeeDAO dao = new EmployeeDAO();
+		EmployeeDao dao = new EmployeeDao();
 		int count = dao.deleteEmployee(id);
 		if(count==0){
 			return Response.status(Response.Status.BAD_REQUEST).build();
